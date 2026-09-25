@@ -7,7 +7,7 @@ def create_task():
     decsription = input("Enter description:")
     priority = input("Enter priority:")
     status = input("Enter status:")
-    due_date = input("Enter due_date:")
+    due_date = input("Enter due date:")
     completed_date = input("Enter Completion date:")
     tags = input("Enter tags:")
     notes = input("Enter notes:")
@@ -16,6 +16,10 @@ def create_task():
     task_list.append(task_infolist)
 
     return task_infolist
+
+def view_all_task():
+    for i in range(len(task_list)):
+        print(f"{i+1}.{task_list[i][0]}")
         
 class task:
 
@@ -47,7 +51,7 @@ class task:
         taskinfo_list[3] = "Completed"
 
 
-str_menu = "1. Create Task\n2. View Tasks\n3. Update Task\n4. Complete Task\n5. Delete Task\n6. Exit"
+str_menu = "1. Create Task\n2. View All Tasks\n3. View Task\n4. Update Task\n5. Complete Task\n6. Delete Task\n7. Exit"
 update_menu = "1.Update Title\n2.Update Description\n3.Update Priority\n4.Update Status\n5.Update Due Date\n6.Update Tags\n7.Update Notes"
 print(str_menu)
 flag = True
@@ -56,27 +60,37 @@ while(flag == True):
     if (choice == 1):
         taskinfo = create_task()
     if (choice == 2):
-        t1 = task(taskinfo)
-        t1.view_task(taskinfo)
+        view_all_task()
     if (choice == 3):
-        print(update_menu)
-        choice_update = int(input("Enter Your Choice From Above:"))
-        updated_info = input("Enter new info to update:")
-        t2 = task(task_list[0])
-        t2.update_task(task_list[0],choice_update,updated_info)
-        t2.view_task(task_list[0])
+        title_ask = input("Enter the title of task to view:") 
+        for i in range(len(task_list)):
+            if (title_ask == task_list[i][0]):
+                t1 = task(task_list[i])
+                t1.view_task(task_list[i])
     if (choice == 4):
-        t3 = task(task_list[0])
-        t3.complete_task(task_list[0])
-        t3.view_task(task_list[0])
+        title_ask = input("Enter title to select task:") 
+        for i in range(len(task_list)):
+            if (title_ask == task_list[i][0]):
+                print(update_menu)
+                choice_update = int(input("Enter Your Choice From Above:"))
+                updated_info = input("Enter new info to update:")
+                t2 = task(task_list[i])
+                t2.update_task(task_list[i],choice_update,updated_info)
+                t2.view_task(task_list[i])
     if (choice == 5):
-        t4 = task(task_list[0])
-        title_ask = input("Enter the title of task to delete")
-        if (title_ask == task_list[0][0]):
-            list_toremove = task_list[0]
-            task_list.remove(list_toremove)
-            t4.view_task(task_list[0])
+        title_ask = input("Enter the title of task to view:") 
+        for i in range(len(task_list)):
+            if (title_ask == task_list[i][0]):
+                t3 = task(task_list[i])
+                t3.complete_task(task_list[i])
+                t3.view_task(task_list[i])
     if (choice == 6):
+        title_ask = input("Enter the title of task to delete:")
+        if (title_ask == task_list[i][0]):
+            list_toremove = task_list[i]
+            task_list.remove(list_toremove)
+            print("Task Deleted Successfully !")
+    if (choice == 7):
         flag = False
     print("\n")
     print(str_menu)
